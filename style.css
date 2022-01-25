@@ -1,0 +1,23 @@
+div{
+
+}
+#fundo{
+    background-color: blue;
+    width: 400px;
+    height: 400px;
+
+}
+#chao{
+    background-color: chocolate;
+    height: 100px;
+    width: 400px;
+}
+canvas{
+    background-color: white;
+    border: 10px solid #ccc;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+    height: 400px;
+    width: 400px;
+}
