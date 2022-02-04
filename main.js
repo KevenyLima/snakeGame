@@ -63,7 +63,7 @@ function geraFruta(){
 
 }
 function automove(){
-
+  
 }
 function colision(){
     for(playerId in game.players){
@@ -98,11 +98,14 @@ function renderScreen(){
     requestAnimationFrame(renderScreen)
     }
 
+
+
 function logKey(e) {
+    
     log.textContent = ` ${e.code}`;
     const player = game.players["player1"]  
     if(e.code=='ArrowUp' && player.y>0){
-        player.y--      
+        player.y--    
     }
     if(e.code=='ArrowDown'&& player.y<9){
         player.y++
@@ -113,8 +116,9 @@ function logKey(e) {
     if(e.code=='ArrowLeft'&& player.x>0){
         player.x--
         //game.players["player1"]={x:game.players["player1"].x-1,y:game.players["player1"].y}
-    }
 }
+}
+
 function logKey2(e) {
     log.textContent = ` ${e.code}`; 
     //player 2
