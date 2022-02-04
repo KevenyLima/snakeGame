@@ -1,47 +1,48 @@
-let time= 10000
-let i=0
-let colisao=0
-
-let idsFrutas
 let fruitId
 let playerId
+let idsFrutas
+let i=0
+let time= 1000
+let colisao=0
+const pontos_jogador1=document.getElementById('pontos jogador 1')
+const pontos_jogador2=document.getElementById('pontos jogador 2')
+const screen =document.getElementById('screen')
+const context = screen.getContext('2d')
 
-const score_jogador1=document.getElementById('score jogador 1')
-const score_jogador2=document.getElementById('score jogador 2')
 
+const color = 'red'
+const positionY=0
+const positionX=0
+const width=10
+const height=10
+context.fillStyle = color
+context.fillRect(positionX,positionY,width,height)
+document.addEventListener('keydown', logKey);
+document.addEventListener('keydown', logKey2);
+document.addEventListener('keydown', colision);
+document.addEventListener('load',automove);
+window.addEventListener('load',geraFruta)
 const game ={
     players:{
-        'player1':{x:1,y:1,score:0},
-        'player2':{x:9,y:5,score:0},
+        'player1':{x:1,y:1,pontos:0},
+        'player2':{x:9,y:5,pontos:0},
     },
     fruits:{
         'fruit1':{x:3,y:1},
         'fruit2':{x:4,y:7}
     }
 }
-
-document.addEventListener('load',automove);
-window.addEventListener('load',geraFruta)
-document.addEventListener('keydown', colision);
-//controls----------------------------------------
-document.addEventListener('keydown', logKey);
-document.addEventListener('keydown', logKey2);
-
 /*function start(){
     setInterval(()=> {
         console.log(i++)
     },time)
    
    }*/
-
-
-
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
   }
-
 function geraFruta(){
 
     setInterval(()=> {
@@ -61,28 +62,42 @@ function geraFruta(){
      },time)
 
 }
+function automove(){
 
+}
 function colision(){
     for(playerId in game.players){
         for(fruitId in game.fruits){
             if(game.players[playerId].x==game.fruits[fruitId].x && game.players[playerId].y == game.fruits[fruitId].y){
                 delete game.fruits[fruitId]
-                game.players[playerId].score++
+                game.players[playerId].pontos++
                 console.log("colidiu " + colisao)
-                console.log(game.players[playerId].score)
+                console.log(game.players[playerId].pontos)
                 colisao++
-                player1_score.innerHTML=`player1 score: ${game.players['player1'].score} `
-                player2_score.textContent=`player2 score : ${game.players['player2'].score}`
+                pontos_jogador1.innerHTML=`pontos jogador 1: ${game.players['player1'].pontos} `
+                pontos_jogador2.textContent=`pontos jogador 2: ${game.players['player2'].pontos}`
             }
         }
     }
 
 }
+renderScreen()
+function renderScreen(){
+    context.fillStyle = color
+    context.fillRect(positionX,positionY,width,height)
+    for(playerId in game.players){
+        const player =game.players[playerId]
+        context.fillStyle='black'
+        context.fillRect(player.x,player.y,1,1)
+    }
+    for(fruitId in game.fruits){
+        const fruit =game.fruits[fruitId]
+        context.fillStyle='green'
+        context.fillRect(fruit.x,fruit.y,1,1)
+    }
+    requestAnimationFrame(renderScreen)
+    }
 
-function automove(){
-
-}
-//-----------------------------------------------------
 function logKey(e) {
     log.textContent = ` ${e.code}`;
     const player = game.players["player1"]  
@@ -100,7 +115,6 @@ function logKey(e) {
         //game.players["player1"]={x:game.players["player1"].x-1,y:game.players["player1"].y}
     }
 }
-
 function logKey2(e) {
     log.textContent = ` ${e.code}`; 
     //player 2
@@ -120,4 +134,3 @@ function logKey2(e) {
     }
 }
 
-export {game}
